@@ -30,7 +30,6 @@ Thumbs.db
 .phpunit.result.cache
 
 # Local database credentials
-config/database.php
 
 # User-uploaded files
 uploads/*
