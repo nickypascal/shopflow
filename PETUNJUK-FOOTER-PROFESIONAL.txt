@@ -1,0 +1,22 @@
+PEMBARUAN FOOTER PROFESIONAL SHOPFLOW
+
+File yang diperbarui:
+- includes/footer.php
+- assets/style.css
+- admin/settings.php
+
+Database:
+- database/update_footer_professional.sql
+
+Cara memasang:
+1. Cadangkan folder aplikasi dan database.
+2. Salin isi paket update ke C:\xampp\htdocs\shopflow-php.
+3. Timpa file lama ketika diminta.
+4. Impor database/update_footer_professional.sql satu kali melalui phpMyAdmin.
+5. Buka Admin > Pengaturan untuk mengganti email, WhatsApp, jam layanan, dan deskripsi footer dengan data bisnis yang sebenarnya.
+6. Restart Apache dan tekan Ctrl + F5.
+
+Catatan:
+- hello@shopflow.id dan +62 812-3456-7890 adalah data contoh. Ganti sebelum website dipublikasikan.
+- Copyright sekarang menjadi: © tahun ShopFlow. Semua hak dilindungi.
+- Tulisan “Dibuat dengan PHP dan MySQL” sudah dihapus dari tampilan publik.

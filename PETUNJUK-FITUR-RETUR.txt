@@ -1,0 +1,67 @@
+FITUR RETUR BARANG SHOPFLOW
+===========================
+
+1. CADANGKAN APLIKASI DAN DATABASE
+----------------------------------
+Cadangkan folder:
+C:\xampp\htdocs\shopflow-php
+
+Cadangkan database shopflow melalui phpMyAdmin.
+
+2. SALIN FILE PEMBARUAN
+-----------------------
+Ekstrak paket shopflow-update-retur-barang.zip.
+Salin seluruh isi folder shopflow-retur-update ke:
+C:\xampp\htdocs\shopflow-php
+
+Pilih Replace the files in the destination.
+
+3. IMPOR DATABASE
+-----------------
+Buka http://localhost/phpmyadmin
+Pilih database shopflow lalu impor satu kali:
+database/update_product_returns.sql
+
+Jangan mengimpor database/shopflow.sql pada aplikasi lama.
+
+4. PERIKSA FOLDER UPLOAD
+------------------------
+Pastikan folder berikut tersedia:
+C:\xampp\htdocs\shopflow-php\uploads\returns
+
+5. HALAMAN PELANGGAN
+--------------------
+Retur Saya:
+http://localhost/shopflow-php/my_returns.php
+
+Kebijakan retur:
+http://localhost/shopflow-php/return_policy.php
+
+Tombol Ajukan Retur muncul pada produk dari pesanan berstatus Selesai
+selama masih berada dalam periode retur.
+
+6. HALAMAN ADMIN
+----------------
+http://localhost/shopflow-php/admin/returns.php
+
+Alur admin:
+Diajukan -> Sedang Ditinjau -> Disetujui -> Barang Dikirim Pelanggan
+-> Barang Diterima Toko -> Sedang Diproses -> Selesai
+
+Admin juga dapat menolak pengajuan sebelum disetujui.
+
+7. PENGUJIAN
+------------
+- Gunakan pesanan berstatus Selesai.
+- Klik Ajukan Retur pada produk.
+- Pilih jumlah, alasan, dan penyelesaian.
+- Unggah foto untuk alasan kerusakan atau produk tidak sesuai.
+- Login admin dan setujui pengajuan.
+- Login pelanggan dan masukkan resi pengembalian.
+- Login admin, terima barang, pilih keputusan stok, lalu selesaikan refund
+  atau kirim barang pengganti.
+
+CATATAN
+-------
+Pengembalian dana pada versi ini dicatat secara manual dan tidak terhubung
+ke payment gateway. Jangan menyimpan PIN, CVV, atau kata sandi pembayaran.

@@ -1,0 +1,51 @@
+FITUR VOUCHER & PROMO SHOPFLOW
+===============================
+
+Pembaruan ini menambahkan:
+- Voucher kode dan promo otomatis.
+- Diskon persentase, potongan nominal, dan gratis ongkir.
+- Minimal belanja, maksimal diskon, periode, kuota total, dan batas per akun.
+- Pembatasan berdasarkan produk, kategori, metode pembayaran, serta layanan pengiriman.
+- Halaman promo pelanggan.
+- Penerapan dan penghapusan voucher pada checkout.
+- Perhitungan ulang diskon di server saat checkout.
+- Snapshot promo pada pesanan.
+- Pengembalian kuota voucher saat pesanan dibatalkan atau ditolak.
+- Dashboard admin untuk menambah, mengedit, menonaktifkan, menghapus, dan melihat penggunaan promo.
+- Informasi promo pada riwayat pesanan, detail admin, laporan, dan ekspor CSV.
+
+PEMASANGAN PADA APLIKASI LAMA
+------------------------------
+1. Cadangkan folder aplikasi dan database shopflow.
+2. Salin seluruh isi paket update ke C:\xampp\htdocs\shopflow-php.
+3. Pilih Replace the files in the destination.
+4. Buka phpMyAdmin dan pilih database shopflow.
+5. Impor database/update_promotions.sql satu kali.
+6. Restart Apache dan tekan Ctrl+F5.
+
+Jangan mengimpor database/shopflow.sql pada aplikasi lama karena file tersebut untuk pemasangan baru.
+
+AKSES FITUR
+-----------
+Pelanggan:
+http://localhost/shopflow-php/promotions.php
+http://localhost/shopflow-php/checkout.php
+
+Admin:
+http://localhost/shopflow-php/admin/promotions.php
+
+VOUCHER CONTOH
+--------------
+SHOPFLOW10   : diskon 10%, maksimal Rp25.000, minimal belanja Rp100.000.
+HEMAT20K     : potongan Rp20.000 kategori Fashion, minimal Rp150.000.
+GRATISONGKIR : potongan ongkir maksimal Rp15.000, minimal Rp75.000.
+
+Terdapat pula Promo Otomatis 5% maksimal Rp10.000 untuk minimal belanja Rp50.000.
+
+ATURAN VERSI INI
+-----------------
+- Satu pesanan hanya memakai satu promo.
+- Voucher kode mengalahkan promo otomatis.
+- Tanpa voucher kode, sistem memilih promo otomatis dengan manfaat terbesar.
+- Diskon dan total akhir selalu dihitung ulang dari database.
+- Kuota dikembalikan satu kali saat pesanan dibatalkan atau ditolak.

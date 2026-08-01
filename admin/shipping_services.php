@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+require_once __DIR__ . '/includes/admin_auth.php';
+$courierId=(int)($_GET['courier_id']??0);
+$couriers=$pdo->query('SELECT id,courier_name FROM shipping_couriers ORDER BY courier_name')->fetchAll();
+$where='1=1';$params=[];if($courierId>0){$where='s.courier_id=:courier_id';$params['courier_id']=$courierId;}
+$stmt=$pdo->prepare("SELECT s.*,c.courier_name,c.courier_code,(SELECT COUNT(*) FROM shipping_rates r WHERE r.shipping_service_id=s.id) rate_count FROM shipping_services s INNER JOIN shipping_couriers c ON c.id=s.courier_id WHERE $where ORDER BY c.courier_name,s.service_name");$stmt->execute($params);$services=$stmt->fetchAll();
+$pageTitle='Layanan Kurir';$activeMenu='shipping';require __DIR__.'/includes/admin_header.php';
+?>
+<div class="admin-page-head"><div><h1>Layanan Kurir</h1><p>Atur kode layanan, nama, dan estimasi waktu pengiriman.</p></div><div class="admin-page-actions"><a class="admin-button admin-button-secondary" href="shipping.php">← Pengiriman</a><a class="admin-button admin-button-primary" href="shipping_service_form.php<?= $courierId>0?'?courier_id='.$courierId:''?>">+ Tambah Layanan</a></div></div>
+<div class="admin-filter-card"><form class="admin-filter-form" method="get"><label class="admin-field"><span>Kurir</span><select class="admin-select" name="courier_id"><option value="0">Semua kurir</option><?php foreach($couriers as $c):?><option value="<?=(int)$c['id']?>" <?=$courierId===(int)$c['id']?'selected':''?>><?=e((string)$c['courier_name'])?></option><?php endforeach;?></select></label><button class="admin-button admin-button-primary" type="submit">Terapkan</button></form></div>
+<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Kurir</th><th>Layanan</th><th>Estimasi</th><th>Tarif</th><th>Status</th><th>Aksi</th></tr></thead><tbody>
+<?php foreach($services as $s):?><tr><td><strong><?=e((string)$s['courier_name'])?></strong><br><small><?=e((string)$s['courier_code'])?></small></td><td><strong><?=e((string)$s['service_name'])?></strong><br><small><?=e((string)$s['service_code'])?> • <?=e((string)($s['description']?:'-'))?></small></td><td><?=e(shipping_estimation_label((int)$s['min_delivery_days'],(int)$s['max_delivery_days']))?></td><td><?=(int)$s['rate_count']?> tujuan</td><td><span class="admin-badge <?=(int)$s['is_active']===1?'status-complete':'status-neutral'?>"><?=(int)$s['is_active']===1?'Aktif':'Nonaktif'?></span></td><td><div class="admin-table-actions"><a class="admin-button admin-button-primary admin-button-small" href="shipping_service_form.php?id=<?=(int)$s['id']?>">Edit</a><a class="admin-button admin-button-secondary admin-button-small" href="shipping_rates.php?service_id=<?=(int)$s['id']?>">Tarif</a><form method="post" action="shipping_service_action.php"><input type="hidden" name="csrf_token" value="<?=e(csrf_token())?>"><input type="hidden" name="service_id" value="<?=(int)$s['id']?>"><input type="hidden" name="action" value="toggle"><button class="admin-button admin-button-warning admin-button-small" type="submit" data-confirm="Ubah status layanan ini?">Toggle</button></form></div></td></tr><?php endforeach;?>
+</tbody></table></div>
+<?php require __DIR__.'/includes/admin_footer.php';?>

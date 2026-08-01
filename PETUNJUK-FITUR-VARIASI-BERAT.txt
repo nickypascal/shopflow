@@ -1,0 +1,50 @@
+UPDATE FITUR VARIASI DAN BERAT PRODUK SHOPFLOW
+================================================
+
+PENTING
+1. Cadangkan folder C:\xampp\htdocs\shopflow-php.
+2. Ekspor/cadangkan database shopflow melalui phpMyAdmin.
+3. Update ini dibuat untuk versi ShopFlow yang sudah memiliki fitur Alamat Pengguna.
+
+LANGKAH PEMASANGAN
+1. Buka phpMyAdmin dan pilih database shopflow.
+2. Import file:
+   database/update_product_variants.sql
+3. Jalankan file SQL tersebut satu kali saja.
+4. Salin seluruh isi folder update ini ke:
+   C:\xampp\htdocs\shopflow-php
+5. Pilih Replace/Timpa file yang sama.
+6. Restart Apache, lalu tekan Ctrl + F5 pada browser.
+
+HALAMAN BARU
+- Detail produk pelanggan:
+  http://localhost/shopflow-php/product_detail.php?id=ID_PRODUK
+- Kelola variasi admin:
+  http://localhost/shopflow-php/admin/product_variants.php?product_id=ID_PRODUK
+- Tambah variasi admin:
+  http://localhost/shopflow-php/admin/product_variant_form.php?product_id=ID_PRODUK
+
+DATA CONTOH
+Setelah SQL diimpor, produk Sneakers Urban akan memiliki variasi:
+- Hitam / 40
+- Hitam / 41
+- Putih / 40
+- Putih / 41
+
+FITUR YANG DITAMBAHKAN
+- Produk dapat memakai stok biasa atau stok per variasi.
+- Setiap variasi memiliki SKU, nama, warna, ukuran, bahan, harga, stok, batas stok, berat, foto, dan status.
+- Berat disimpan dalam gram.
+- Produk variasi wajib dipilih sebelum masuk keranjang.
+- Keranjang membedakan setiap kombinasi produk dan variasi.
+- Checkout memvalidasi ulang harga, stok, status, dan berat.
+- Snapshot variasi dan berat disimpan di order_items.
+- Total berat disimpan di orders.
+- Stok variasi berkurang saat checkout dan kembali saat dibatalkan/ditolak.
+- Manajemen stok admin mendukung produk biasa dan variasi.
+- Riwayat pesanan pengguna/admin menampilkan variasi, SKU, dan berat.
+
+CATATAN
+- Jangan mengimpor ulang database/shopflow.sql pada aplikasi lama.
+- File shopflow.sql hanya digunakan untuk pemasangan baru.
+- Jalankan update_product_variants.sql sebelum membuka aplikasi versi update.

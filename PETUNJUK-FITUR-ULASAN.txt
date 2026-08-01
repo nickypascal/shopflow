@@ -1,0 +1,64 @@
+SHOPFLOW — PETUNJUK FITUR ULASAN PRODUK
+======================================
+
+A. PEMASANGAN PADA APLIKASI LAMA
+
+1. Cadangkan folder:
+   C:\xampp\htdocs\shopflow-php
+
+2. Cadangkan database shopflow melalui phpMyAdmin.
+
+3. Salin seluruh isi paket update ke:
+   C:\xampp\htdocs\shopflow-php
+
+4. Pilih "Replace the files in the destination".
+
+5. Buka phpMyAdmin, pilih database shopflow, lalu impor satu kali:
+   database/update_product_reviews.sql
+
+6. Jangan mengimpor database/shopflow.sql pada aplikasi lama.
+
+7. Restart Apache dan tekan Ctrl + F5.
+
+B. HALAMAN BARU
+
+Pelanggan:
+- my_reviews.php
+- review_create.php?order_item=ID_ITEM
+- review_edit.php?id=ID_ULASAN
+
+Admin:
+- admin/reviews.php
+- admin/review_detail.php?id=ID_ULASAN
+
+C. CARA MENGUJI
+
+1. Login sebagai pelanggan.
+2. Buat pesanan dan ubah statusnya sampai Selesai.
+3. Buka menu Pesanan.
+4. Klik "Beri Ulasan" pada salah satu produk.
+5. Pilih rating, isi komentar, dan unggah foto opsional.
+6. Buka menu Ulasan untuk melihat, mengedit, atau menghapus ulasan.
+7. Buka detail produk dan periksa ringkasan rating serta daftar ulasan.
+8. Login admin.
+9. Buka menu Ulasan Produk.
+10. Ubah status ulasan, berikan balasan, atau hapus foto yang tidak sesuai.
+11. Periksa notifikasi pelanggan setelah admin membalas atau menolak ulasan.
+
+D. ATURAN
+
+- Hanya pesanan berstatus Selesai yang dapat diulas.
+- Satu order item hanya dapat diulas satu kali.
+- Ulasan pengguna lain tidak dapat diubah atau dihapus.
+- Rating wajib 1 sampai 5.
+- Isi ulasan minimal 10 dan maksimal 2.000 karakter.
+- Foto maksimal 3, ukuran maksimal 2 MB per foto.
+- Format foto: JPG, PNG, atau WEBP.
+- Statistik produk hanya menghitung ulasan berstatus PUBLISHED.
+
+E. PENGATURAN MODERASI
+
+Buka Admin → Pengaturan Toko → Operasional.
+
+- Tidak: ulasan baru langsung diterbitkan.
+- Ya: ulasan baru menunggu moderasi admin.

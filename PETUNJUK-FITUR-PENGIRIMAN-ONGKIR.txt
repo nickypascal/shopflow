@@ -1,0 +1,78 @@
+UPDATE FITUR PENGIRIMAN DAN ONGKOS KIRIM SHOPFLOW
+=================================================
+
+PENTING
+1. Cadangkan folder C:\xampp\htdocs\shopflow-php.
+2. Ekspor/cadangkan database shopflow melalui phpMyAdmin.
+3. Update ini dibuat untuk ShopFlow yang sudah memiliki fitur Variasi dan Berat Produk.
+
+LANGKAH PEMASANGAN
+1. Buka phpMyAdmin dan pilih database shopflow.
+2. Import file:
+   database/update_shipping_system.sql
+3. Jalankan file SQL tersebut satu kali saja.
+4. Salin seluruh isi folder update ke:
+   C:\xampp\htdocs\shopflow-php
+5. Pilih Replace/Timpa file yang sama.
+6. Restart Apache, lalu tekan Ctrl + F5 pada browser.
+
+HALAMAN BARU
+- Pelacakan pesanan pelanggan:
+  http://localhost/shopflow-php/track_order.php?order=ID_PESANAN
+
+- Dashboard pengiriman admin:
+  http://localhost/shopflow-php/admin/shipping.php
+
+- Kelola kurir:
+  http://localhost/shopflow-php/admin/shipping_couriers.php
+
+- Kelola layanan:
+  http://localhost/shopflow-php/admin/shipping_services.php
+
+- Kelola tarif:
+  http://localhost/shopflow-php/admin/shipping_rates.php
+
+FITUR YANG DITAMBAHKAN
+- Ongkir dihitung berdasarkan alamat, berat, kurir, dan layanan.
+- Berat dibulatkan ke kilogram pengiriman.
+- Tarif 1 kg pertama dan kg berikutnya dapat berbeda.
+- COD dan COD Cek Dulu hanya menampilkan kurir yang mendukung.
+- Biaya COD tersimpan terpisah.
+- Checkout menyimpan snapshot kurir, layanan, estimasi, ongkir, dan berat.
+- Admin wajib memasukkan nomor resi sebelum status Dikirim.
+- Admin dapat menambahkan riwayat perjalanan paket.
+- Pelanggan dapat membuka halaman Lacak Pengiriman.
+- Pelanggan dapat mengonfirmasi paket sudah diterima.
+- Konfirmasi penerimaan mengubah status menjadi Selesai.
+
+DATA CONTOH
+SQL menambahkan kurir contoh:
+- JNE
+- J&T Express
+- SiCepat
+- AnterAja
+- Kurir Toko
+
+Tarif contoh tersedia untuk:
+- Provinsi: Jawa Tengah
+- Kota/Kabupaten: Rembang
+
+Alamat demo pelanggan sudah berada di Rembang sehingga dapat langsung diuji.
+Untuk tujuan lain, tambahkan tarif melalui dashboard admin.
+
+PENGUJIAN YANG DISARANKAN
+1. Checkout menggunakan DANA dan pilih salah satu kurir.
+2. Checkout menggunakan COD dan periksa layanan yang tersedia.
+3. Checkout menggunakan COD Cek Dulu.
+4. Uji produk dengan berat lebih dari 1 kg.
+5. Login admin, ubah pesanan menjadi Diproses.
+6. Masukkan nomor resi saat mengubah menjadi Dikirim.
+7. Tambahkan riwayat perjalanan paket.
+8. Login pelanggan dan buka Lacak Pengiriman.
+9. Klik Pesanan Sudah Diterima.
+
+CATATAN
+- Sistem memakai tarif manual dari database, bukan API kurir resmi.
+- Jangan mengimpor ulang database/shopflow.sql pada aplikasi lama.
+- database/shopflow.sql hanya digunakan untuk pemasangan baru.
+- Jalankan update_shipping_system.sql sebelum membuka file PHP versi update.

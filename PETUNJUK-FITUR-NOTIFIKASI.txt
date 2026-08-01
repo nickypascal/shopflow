@@ -1,0 +1,41 @@
+PEMBARUAN FITUR NOTIFIKASI SHOPFLOW
+====================================
+
+PERSYARATAN
+- Aplikasi sudah menggunakan versi Wishlist.
+- Apache dan MySQL XAMPP aktif.
+- Database yang digunakan bernama shopflow.
+
+CARA MEMASANG
+1. Cadangkan folder C:\xampp\htdocs\shopflow-php.
+2. Cadangkan database shopflow melalui phpMyAdmin.
+3. Salin seluruh isi folder pembaruan ke:
+   C:\xampp\htdocs\shopflow-php
+4. Pilih Replace the files in the destination.
+5. Buka phpMyAdmin dan pilih database shopflow.
+6. Impor satu kali:
+   database/update_notifications.sql
+7. Restart Apache.
+8. Tekan Ctrl + F5 pada browser.
+
+HALAMAN BARU
+- Pelanggan: http://localhost/shopflow-php/notifications.php
+- Preferensi: http://localhost/shopflow-php/notification_preferences.php
+- Admin: http://localhost/shopflow-php/admin/notifications.php
+
+CARA MENGUJI
+1. Login sebagai pelanggan dan lakukan checkout.
+2. Pastikan notifikasi pesanan muncul pada ikon lonceng pelanggan.
+3. Login sebagai admin dan pastikan notifikasi pesanan baru muncul.
+4. Ubah status pesanan menjadi Diproses lalu Dikirim.
+5. Periksa notifikasi pelanggan dan nomor resi.
+6. Ubah stok dari 0 menjadi lebih dari 0 untuk produk wishlist.
+7. Turunkan harga produk atau variasi wishlist.
+8. Buka Admin > Voucher & Promo dan klik Umumkan pada promo aktif.
+9. Uji Tandai Dibaca, Tandai Semua Dibaca, dan Hapus.
+
+CATATAN
+- Jangan mengimpor ulang database/shopflow.sql pada aplikasi lama.
+- update_notifications.sql dijalankan satu kali.
+- Notifikasi menggunakan database internal, bukan email atau WhatsApp.
+- Polling badge notifikasi dilakukan setiap 30 detik.

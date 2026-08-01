@@ -1,0 +1,44 @@
+FITUR WISHLIST SHOPFLOW
+=======================
+
+Pembaruan ini menambahkan:
+- Tombol hati pada kartu dan detail produk.
+- Wishlist terpisah untuk setiap pelanggan.
+- Produk tidak dapat tersimpan dua kali pada akun yang sama.
+- Penyimpanan variasi pilihan untuk produk bervariasi.
+- Halaman Wishlist Saya dengan foto, harga, stok, berat, promo, dan perubahan harga.
+- Ganti variasi langsung dari halaman wishlist.
+- Tambah produk wishlist ke keranjang.
+- Produk stok habis tetap tersimpan, tetapi tidak dapat dimasukkan ke keranjang.
+- Jumlah wishlist pada navigasi pelanggan.
+- Laporan produk paling disukai pada dashboard admin.
+- Validasi login, CSRF, kepemilikan data, produk, dan hubungan variasi.
+
+PEMASANGAN PADA APLIKASI LAMA
+------------------------------
+1. Cadangkan folder aplikasi dan database shopflow.
+2. Salin seluruh isi paket update ke C:\xampp\htdocs\shopflow-php.
+3. Pilih Replace the files in the destination.
+4. Buka phpMyAdmin dan pilih database shopflow.
+5. Impor database/update_wishlist.sql satu kali.
+6. Restart Apache dan tekan Ctrl+F5.
+
+Jangan mengimpor database/shopflow.sql pada aplikasi lama karena file tersebut untuk pemasangan baru.
+
+AKSES FITUR
+-----------
+Pelanggan:
+http://localhost/shopflow-php/wishlist.php
+
+Admin:
+http://localhost/shopflow-php/admin/wishlist_report.php
+
+CARA UJI SINGKAT
+----------------
+1. Login sebagai pelanggan.
+2. Tekan ikon hati pada kartu produk.
+3. Buka menu Wishlist.
+4. Untuk produk bervariasi, pilih variasi lalu tekan Simpan Variasi.
+5. Tekan Tambah ke Keranjang.
+6. Ubah harga atau stok produk dari dashboard admin dan periksa informasi pada wishlist.
+7. Login sebagai admin dan buka menu Wishlist untuk melihat produk terfavorit.

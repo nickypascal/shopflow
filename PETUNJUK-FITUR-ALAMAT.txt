@@ -1,0 +1,34 @@
+FITUR ALAMAT PENGGUNA SHOPFLOW
+===============================
+
+Fitur yang tersedia:
+- Pengguna dapat menyimpan maksimal 10 alamat.
+- Tambah, edit, hapus, dan jadikan alamat utama.
+- Pemeriksaan kepemilikan alamat berdasarkan user_id.
+- Proteksi CSRF pada semua perubahan data.
+- Checkout menggunakan alamat tersimpan.
+- Alamat utama otomatis dipilih saat checkout.
+- Salinan alamat disimpan pada tabel orders.
+- Perubahan alamat tidak mengubah alamat pesanan lama.
+- Alamat tampil pada riwayat pesanan, halaman sukses, dan detail pesanan admin.
+
+PEMASANGAN PADA APLIKASI LAMA
+-----------------------------
+1. Cadangkan folder C:\xampp\htdocs\shopflow-php dan database shopflow.
+2. Salin seluruh isi paket update ke C:\xampp\htdocs\shopflow-php.
+3. Pilih Replace the files in the destination.
+4. Buka phpMyAdmin dan pilih database shopflow.
+5. Impor database/update_user_addresses.sql.
+6. Logout lalu login kembali sebagai pengguna.
+7. Buka http://localhost/shopflow-php/addresses.php.
+
+PENTING
+-------
+- Jalankan update_user_addresses.sql setelah file pembaruan disalin.
+- Jangan mengimpor ulang shopflow.sql pada aplikasi lama karena dapat menghapus data.
+- Pesanan lama tetap dapat dibuka; kolom alamat baru akan kosong dan alamat lama tetap tampil.
+
+AKUN DEMO
+---------
+Pengguna: pelanggan@shopflow.test / password123
+Admin   : admin@shopflow.test / admin123

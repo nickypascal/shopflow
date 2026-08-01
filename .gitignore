@@ -1,0 +1,42 @@
+﻿# Dependencies
+node_modules/
+vendor/
+
+# Playwright results
+playwright-report/
+test-results/
+blob-report/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local database/configuration
+config/database.local.php
+
+# Logs and temporary files
+*.log
+*.tmp
+*.cache
+
+# Operating system and editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Composer temporary files
+.phpunit.result.cache
+
+# Local database credentials
+config/database.php
+
+# User-uploaded files
+uploads/*
+!uploads/.gitkeep
+
+# Database lokal dan kredensial
+database/shopflow.sql
+database/update_admin_login_credentials.sql
+database/update_customer_login_credentials.sql

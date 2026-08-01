@@ -1,0 +1,70 @@
+PENYEMPURNAAN LAPORAN ADMIN SHOPFLOW
+=====================================
+
+FITUR UTAMA
+-----------
+1. Pusat laporan dengan filter periode cepat dan rentang tanggal.
+2. Laporan penjualan dan perbandingan periode.
+3. Laporan pesanan dan distribusi status.
+4. Laporan produk, variasi, wishlist, rating, dan retur.
+5. Laporan stok dan riwayat pergerakan stok.
+6. Laporan pelanggan.
+7. Laporan pembayaran (COD dan pembayaran online simulasi).
+8. Laporan pengiriman, ongkir, biaya COD, tujuan, dan kelengkapan resi.
+9. Laporan voucher dan promo.
+10. Laporan wishlist dan konversi pembelian.
+11. Laporan ulasan produk.
+12. Laporan retur dan refund.
+13. Ekspor CSV kompatibel Excel.
+14. Tampilan cetak laporan.
+15. Pencatatan aktivitas admin ketika mengekspor atau mencetak laporan.
+16. Index database untuk mempercepat laporan.
+
+PEMASANGAN PADA APLIKASI LAMA
+------------------------------
+1. Cadangkan folder C:\xampp\htdocs\shopflow-php.
+2. Cadangkan database shopflow melalui phpMyAdmin.
+3. Salin seluruh isi paket update ke C:\xampp\htdocs\shopflow-php.
+4. Pilih Replace the files in the destination.
+5. Buka phpMyAdmin dan pilih database shopflow.
+6. Impor database/update_admin_reports.sql satu kali saja.
+7. Restart Apache.
+8. Login admin dan buka:
+   http://localhost/shopflow-php/admin/reports.php
+
+PENTING
+-------
+- Jangan mengimpor database/shopflow.sql pada aplikasi lama.
+- File database/shopflow.sql hanya digunakan untuk instalasi baru.
+- Kolom purchased_at dan purchased_order_id pada wishlist digunakan untuk
+  menandai produk wishlist yang ikut dibeli pada checkout.
+- Laporan penjualan produk hanya menghitung pesanan berstatus Selesai.
+- Refund hanya mengurangi penjualan bersih ketika refund_status = COMPLETED.
+- Pembayaran online masih diberi label Simulasi.
+
+HALAMAN LAPORAN
+---------------
+admin/reports.php               Ringkasan
+admin/reports_sales.php         Penjualan
+admin/reports_orders.php        Pesanan
+admin/reports_products.php      Produk
+admin/reports_stock.php         Stok
+admin/reports_customers.php     Pelanggan
+admin/reports_payments.php      Pembayaran
+admin/reports_shipping.php      Pengiriman
+admin/reports_promotions.php    Voucher & Promo
+admin/reports_wishlist.php      Wishlist
+admin/reports_reviews.php       Ulasan
+admin/reports_returns.php       Retur
+
+PENGUJIAN SINGKAT
+-----------------
+1. Buka laporan pada periode tanpa data.
+2. Buat dan selesaikan satu pesanan.
+3. Periksa penjualan, pesanan, produk, pelanggan, pembayaran, dan pengiriman.
+4. Gunakan voucher dan periksa laporan promo.
+5. Beli produk yang sebelumnya disimpan pada wishlist dan periksa konversi.
+6. Buat ulasan dan retur, lalu periksa laporannya.
+7. Uji Ekspor CSV dan buka hasilnya dengan Excel.
+8. Uji tombol Cetak.
+9. Pastikan akun pelanggan tidak dapat membuka URL admin.
