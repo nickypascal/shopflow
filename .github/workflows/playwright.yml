@@ -1,0 +1,117 @@
+name: Pengujian Fungsional ShopFlow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  playwright:
+    name: Playwright Chromium
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: shopflow
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    env:
+      CI: true
+
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_NAME: shopflow
+      DB_USER: root
+      DB_PASS: root
+
+      SHOPFLOW_BASE_URL: http://127.0.0.1:8000/
+      SHOPFLOW_TEST_EMAIL: customer-ci@shopflow.test
+      SHOPFLOW_TEST_PASSWORD: ShopFlowTest123!
+      SHOPFLOW_TEST_SIMPLE_PRODUCT: Lampu Meja LED
+      SHOPFLOW_TEST_PRODUCT_AVAILABLE: Laptop Premium 14
+      SHOPFLOW_TEST_PRODUCT_UNAVAILABLE: Produk Tidak Tersedia 999
+
+    steps:
+      - name: Ambil kode repository
+        uses: actions/checkout@v7
+
+      - name: Siapkan PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql, mysqli, mbstring, gd, zip
+          tools: composer
+          coverage: none
+
+      - name: Siapkan Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Instal dependensi Composer
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Instal dependensi Node.js
+        run: npm ci
+
+      - name: Instal Chromium Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Instal klien MySQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y default-mysql-client
+
+      - name: Impor database pengujian
+        run: |
+          mysql             --host="$DB_HOST"             --port="$DB_PORT"             --user="$DB_USER"             --password="$DB_PASS"             < database/shopflow_ci.sql
+
+      - name: Jalankan server ShopFlow
+        run: |
+          nohup php -S 127.0.0.1:8000 -t . > php-server.log 2>&1 &
+          echo $! > php-server.pid
+
+          for attempt in {1..30}; do
+            if curl --fail --silent --show-error               http://127.0.0.1:8000/index.php > /dev/null; then
+              echo "Server ShopFlow siap."
+              exit 0
+            fi
+
+            sleep 1
+          done
+
+          echo "Server ShopFlow gagal dijalankan."
+          cat php-server.log
+          exit 1
+
+      - name: Jalankan 8 pengujian Playwright
+        run: npx playwright test --project=chromium
+
+      - name: Unggah laporan Playwright
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: laporan-playwright
+          path: |
+            playwright-report/
+            test-results/
+            php-server.log
+          if-no-files-found: ignore
+          retention-days: 14
