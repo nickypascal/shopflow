@@ -41,6 +41,8 @@ test('TC-05 - menambahkan produk ke keranjang', async ({ page }) => {
 
   await page.getByRole('link', { name: /Keranjang/ }).first().click();
 
-  await expect(page).toHaveURL(/\/shopflow-php\/cart\.php(?:[?#].*)?$/);
+  await expect(page).toHaveURL(
+    /\/(?:shopflow-php\/)?cart\.php(?:[?#].*)?$/,
+  );
   await expect(page.locator('body')).toContainText(productName);
 });

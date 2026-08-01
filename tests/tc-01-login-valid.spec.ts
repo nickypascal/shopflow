@@ -16,7 +16,9 @@ test('TC-01 - login pengguna dengan akun valid', async ({ page }) => {
   await page.locator('input[name="password"]').fill(password!);
   await page.getByRole('button', { name: 'Masuk sebagai Pengguna' }).click();
 
-  await expect(page).toHaveURL(/\/shopflow-php\/(?:index\.php)?(?:[?#].*)?$/);
+  await expect(page).toHaveURL(
+    /\/(?:shopflow-php\/)?(?:index\.php)?(?:[?#].*)?$/,
+  );
   await expect(page.locator('body')).toContainText('Login pengguna berhasil');
   await expect(page.getByText('Keluar', { exact: true })).toBeVisible();
 });

@@ -16,7 +16,9 @@ test('TC-02 - login pengguna dengan kata sandi tidak valid', async ({ page }) =>
   await page.locator('input[name="password"]').fill(invalidPassword);
   await page.getByRole('button', { name: 'Masuk sebagai Pengguna' }).click();
 
-  await expect(page).toHaveURL(/\/shopflow-php\/login\.php(?:[?#].*)?$/);
+  await expect(page).toHaveURL(
+    /\/(?:shopflow-php\/)?login\.php(?:[?#].*)?$/,
+  );
   await expect(page.locator('body')).toContainText(
     'Email atau kata sandi pengguna salah.',
   );

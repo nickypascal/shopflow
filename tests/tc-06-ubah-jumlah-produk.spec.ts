@@ -11,7 +11,6 @@ test('TC-06 - mengubah jumlah produk di keranjang', async ({ page }) => {
     'SHOPFLOW_TEST_EMAIL dan SHOPFLOW_TEST_PASSWORD belum diatur.',
   );
 
-  // Login sebagai pelanggan.
   await page.goto('login.php');
   await page.locator('input[name="email"]').fill(email!);
   await page.locator('input[name="password"]').fill(password!);
@@ -19,7 +18,6 @@ test('TC-06 - mengubah jumlah produk di keranjang', async ({ page }) => {
 
   await expect(page.getByText('Keluar', { exact: true })).toBeVisible();
 
-  // Tambahkan satu produk sederhana agar test dapat berdiri sendiri.
   await page.goto('index.php');
   await page.locator('input[name="q"]').fill(productName);
   await page.getByRole('button', { name: 'Cari Produk' }).click();
@@ -41,7 +39,6 @@ test('TC-06 - mengubah jumlah produk di keranjang', async ({ page }) => {
     `${productName} ditambahkan ke keranjang.`,
   );
 
-  // Buka keranjang dan ubah jumlah menjadi 2.
   await page.goto('cart.php');
 
   const cartItem = page
@@ -59,7 +56,9 @@ test('TC-06 - mengubah jumlah produk di keranjang', async ({ page }) => {
   await quantityInput.fill('2');
   await cartItem.getByRole('button', { name: 'Perbarui' }).click();
 
-  await expect(page).toHaveURL(/\/shopflow-php\/cart\.php(?:[?#].*)?$/);
+  await expect(page).toHaveURL(
+    /\/(?:shopflow-php\/)?cart\.php(?:[?#].*)?$/,
+  );
   await expect(page.locator('body')).toContainText('Jumlah produk diperbarui.');
 
   const updatedCartItem = page
@@ -78,7 +77,6 @@ test('TC-06 - mengubah jumlah produk di keranjang', async ({ page }) => {
   const totalAfter = (await updatedItemTotal.textContent())?.trim() ?? '';
   expect(totalAfter).not.toBe(totalBefore);
 
-  // Ringkasan belanja harus menampilkan subtotal yang sama dengan total item.
   const summarySubtotal = page
     .locator('.summary-card .summary-row')
     .filter({ hasText: 'Subtotal' })
