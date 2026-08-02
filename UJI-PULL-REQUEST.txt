@@ -1,0 +1,2 @@
+﻿Pengujian trigger pull_request GitHub Actions ShopFlow.
+File ini hanya digunakan untuk membuktikan workflow berjalan saat Pull Request dibuat.
