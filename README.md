@@ -1,5 +1,7 @@
 # ShopFlow PHP — Dashboard Admin Lengkap
 
+[![Pengujian Fungsional ShopFlow](https://github.com/nickypascal/shopflow/actions/workflows/playwright.yml/badge.svg)](https://github.com/nickypascal/shopflow/actions/workflows/playwright.yml)
+
 Aplikasi e-commerce PHP + MySQL dengan halaman pelanggan dan dashboard admin terpisah.
 
 ## Fitur pelanggan
@@ -101,9 +103,57 @@ uploads/products/
 
 Pastikan folder tersebut dapat ditulis oleh PHP. Format yang diizinkan: JPG, PNG, WEBP, dan GIF; maksimal 2 MB.
 
-## Pengujian
+## Pengujian Otomatis dan Continuous Integration
 
-Seluruh file PHP telah diperiksa menggunakan `php -l` dan tidak memiliki kesalahan sintaks. Pengujian transaksi langsung dengan MySQL tidak dijalankan di lingkungan pembuatan karena layanan MySQL tidak tersedia.
+ShopFlow menggunakan **Playwright** untuk menjalankan pengujian fungsional otomatis pada browser Chromium.
+
+Pengujian yang tersedia:
+
+1. TC-01 — Login pengguna dengan akun valid
+2. TC-02 — Login pengguna dengan kata sandi tidak valid
+3. TC-03 — Pencarian produk tersedia
+4. TC-04 — Pencarian produk tidak tersedia
+5. TC-05 — Menambahkan produk ke keranjang
+6. TC-06 — Mengubah jumlah produk di keranjang
+7. TC-07 — Checkout dengan data lengkap
+8. TC-08 — Checkout tanpa metode pembayaran
+
+Menjalankan pengujian secara lokal:
+
+```bash
+npx playwright test --project=chromium
+```
+
+Membuka laporan HTML Playwright:
+
+```bash
+npx playwright show-report
+```
+
+Workflow GitHub Actions tersimpan di:
+
+```text
+.github/workflows/playwright.yml
+```
+
+Workflow dijalankan otomatis ketika:
+
+- Terdapat `push` ke branch `main`
+- Terdapat `pull_request` menuju branch `main`
+
+Tahapan Continuous Integration meliputi:
+
+- Menyiapkan PHP, Node.js, Composer, dan MySQL
+- Mengimpor database khusus pengujian
+- Menjalankan server PHP
+- Menjalankan delapan pengujian Playwright pada Chromium
+- Menyimpan laporan Playwright dan log server sebagai artifact
+
+Branch `main` dilindungi dengan aturan berikut:
+
+- Perubahan wajib melalui Pull Request
+- Status check **Playwright Chromium** wajib berhasil
+- Push langsung ke branch `main` tidak diperbolehkan
 
 ## Login pengguna dan admin terpisah
 
