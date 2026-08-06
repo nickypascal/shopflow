@@ -46,10 +46,11 @@ jobs:
       SHOPFLOW_TEST_SIMPLE_PRODUCT: Lampu Meja LED
       SHOPFLOW_TEST_PRODUCT_AVAILABLE: Laptop Premium 14
       SHOPFLOW_TEST_PRODUCT_UNAVAILABLE: Produk Tidak Tersedia 999
-
+      SHOPFLOW_TEST_NO_ADDRESS_EMAIL: tc08.tanpaalamat@shopflow.id
+      SHOPFLOW_TEST_NO_ADDRESS_PASSWORD: ${{ secrets.SHOPFLOW_TEST_NO_ADDRESS_PASSWORD }}
     steps:
       - name: Ambil kode repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v6
 
       - name: Siapkan PHP
         uses: shivammathur/setup-php@v2

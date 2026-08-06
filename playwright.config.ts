@@ -3,7 +3,6 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
 
-  // ShopFlow memakai satu database pengujian, sehingga test dijalankan berurutan.
   fullyParallel: false,
   workers: 1,
 
@@ -27,8 +26,7 @@ export default defineConfig({
   ],
 
   use: {
-    // Lokal: http://localhost/shopflow-php/
-    // GitHub Actions: diisi melalui SHOPFLOW_BASE_URL.
+
     baseURL:
       process.env.SHOPFLOW_BASE_URL ??
       'http://localhost/shopflow-php/',
