@@ -12,7 +12,6 @@ test('TC-08 - checkout tanpa alamat pengiriman', async ({ page }) => {
     'SHOPFLOW_TEST_NO_ADDRESS_EMAIL dan SHOPFLOW_TEST_NO_ADDRESS_PASSWORD belum diatur.',
   );
 
-  // 1. Login menggunakan akun yang belum memiliki alamat
   await page.goto('login.php');
 
   await page.locator('input[name="email"]').fill(email!);
@@ -29,7 +28,6 @@ test('TC-08 - checkout tanpa alamat pengiriman', async ({ page }) => {
     /\/(?:shopflow-php\/)?login\.php(?:[?#].*)?$/,
   );
 
-  // 2. Mencari produk
   await page.goto('index.php');
 
   await page.locator('input[name="q"]').fill(productName);
@@ -44,7 +42,6 @@ test('TC-08 - checkout tanpa alamat pengiriman', async ({ page }) => {
 
   await expect(productCard).toBeVisible();
 
-  // 3. Menambahkan produk ke keranjang
   const addToCartButton = productCard.getByRole('button', {
     name: '+ Keranjang',
   });
@@ -56,7 +53,6 @@ test('TC-08 - checkout tanpa alamat pengiriman', async ({ page }) => {
     `${productName} ditambahkan ke keranjang.`,
   );
 
-  // 4. Membuka halaman checkout
   await page.goto('cart.php');
 
   await page
@@ -67,7 +63,6 @@ test('TC-08 - checkout tanpa alamat pengiriman', async ({ page }) => {
     /\/(?:shopflow-php\/)?checkout\.php(?:[?#].*)?$/,
   );
 
-  // 5. Memastikan alamat belum tersedia
   await expect(
     page
       .getByText(
@@ -76,22 +71,18 @@ test('TC-08 - checkout tanpa alamat pengiriman', async ({ page }) => {
       .first(),
   ).toBeVisible();
 
-  // 6. Tidak boleh ada alamat yang terpilih
   await expect(
     page.locator('input[name="address_id"]:checked'),
   ).toHaveCount(0);
 
-  // 7. Tombol membuat pesanan harus dinonaktifkan
   const checkoutButton = page.getByRole('button', {
     name: 'Buat Pesanan',
   });
 
   await expect(checkoutButton).toBeDisabled();
 
-  // 8. Produk tetap berada pada halaman checkout
   await expect(page.locator('body')).toContainText(productName);
 
-  // 9. Pesanan tidak berhasil dibuat
   await expect(page.locator('body')).not.toContainText(
     /checkout berhasil|pesanan berhasil dibuat/i,
   );
