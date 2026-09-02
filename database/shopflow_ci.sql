@@ -672,6 +672,7 @@ CREATE TABLE store_settings (
 
 INSERT INTO users (name, email, password, role, status) VALUES
 ('Pelanggan CI ShopFlow', 'customer-ci@shopflow.test', '$2y$12$Q1xpDC70Go3wirYL/tmawesSowrFaUbfKWjq0mHIGGpWoggO6o5TO', 'customer', 'active'),
+('Pelanggan CI Tanpa Alamat', 'tc09.tanpaalamat@shopflow.id', '$2y$12$Q1xpDC70Go3wirYL/tmawesSowrFaUbfKWjq0mHIGGpWoggO6o5TO', 'customer', 'active'),
 ('Admin CI ShopFlow', 'admin-ci@shopflow.test', '$2y$12$f/ldKqbMjIoG0Gy5dlGmhugTS8fdCAx0sDHnTt/mhZt/BdL0KP6s2', 'admin', 'active');
 
 INSERT INTO notification_preferences (user_id)
