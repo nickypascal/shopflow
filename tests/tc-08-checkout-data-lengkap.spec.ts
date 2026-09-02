@@ -5,7 +5,7 @@ const password = process.env.SHOPFLOW_TEST_PASSWORD;
 const productName =
   process.env.SHOPFLOW_TEST_SIMPLE_PRODUCT ?? 'Kursi Kerja Nyaman';
 
-test('TC-05 - menambahkan produk ke keranjang', async ({ page }) => {
+test('TC-08 - checkout dengan data lengkap', async ({ page }) => {
   test.skip(
     !email || !password,
     'SHOPFLOW_TEST_EMAIL dan SHOPFLOW_TEST_PASSWORD belum diatur.',
@@ -39,10 +39,41 @@ test('TC-05 - menambahkan produk ke keranjang', async ({ page }) => {
     `${productName} ditambahkan ke keranjang.`,
   );
 
-  await page.getByRole('link', { name: /Keranjang/ }).first().click();
+  await page.goto('cart.php');
+  await page.getByRole('link', { name: 'Lanjut ke Checkout' }).click();
 
   await expect(page).toHaveURL(
-    /\/(?:shopflow-php\/)?cart\.php(?:[?#].*)?$/,
+    /\/(?:shopflow-php\/)?checkout\.php(?:[?#].*)?$/,
   );
-  await expect(page.locator('body')).toContainText(productName);
+  await expect(
+    page.getByRole('heading', {
+      name: 'Lengkapi pengiriman dan pembayaran.',
+    }),
+  ).toBeVisible();
+
+  await expect(
+    page.locator('input[name="address_id"]:checked'),
+  ).toHaveCount(1);
+
+  await expect(
+    page.locator('input[name="payment_method"]:checked'),
+  ).toHaveCount(1);
+
+  await expect(
+    page.locator('input[name="shipping_rate_id"]:checked'),
+  ).toHaveCount(1, { timeout: 10_000 });
+
+  const checkoutButton = page.getByRole('button', {
+    name: 'Buat Pesanan',
+  });
+  await expect(checkoutButton).toBeEnabled();
+
+  await checkoutButton.click();
+
+  await expect(page).toHaveURL(
+    /\/(?:shopflow-php\/)?order_success\.php\?id=\d+$/,
+    { timeout: 15_000 },
+  );
+  await expect(page.locator('body')).toContainText('Checkout berhasil');
+  await expect(page.locator('body')).toContainText('Nomor pesanan');
 });

@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 const unavailableProduct =
   process.env.SHOPFLOW_TEST_PRODUCT_UNAVAILABLE ?? 'Produk Tidak Tersedia 999';
 
-test('TC-04 - pencarian produk tidak tersedia', async ({ page }) => {
+test('TC-05 - pencarian produk tidak tersedia', async ({ page }) => {
   const response = await page.goto('index.php');
   expect(response?.ok()).toBeTruthy();
 

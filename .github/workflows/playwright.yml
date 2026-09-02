@@ -102,7 +102,7 @@ jobs:
           cat php-server.log
           exit 1
 
-      - name: Jalankan 8 pengujian Playwright
+      - name: Jalankan 10 pengujian Playwright
         run: npx playwright test --project=chromium
 
       - name: Unggah laporan Playwright

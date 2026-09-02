@@ -5,7 +5,7 @@ const password = process.env.SHOPFLOW_TEST_PASSWORD;
 const productName =
   process.env.SHOPFLOW_TEST_SIMPLE_PRODUCT ?? 'Kursi Kerja Nyaman';
 
-test('TC-06 - mengubah jumlah produk di keranjang', async ({ page }) => {
+test('TC-07 - mengubah jumlah produk di keranjang', async ({ page }) => {
   test.skip(
     !email || !password,
     'SHOPFLOW_TEST_EMAIL dan SHOPFLOW_TEST_PASSWORD belum diatur.',
