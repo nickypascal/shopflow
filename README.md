@@ -111,12 +111,14 @@ Pengujian yang tersedia:
 
 1. TC-01 — Login pengguna dengan akun valid
 2. TC-02 — Login pengguna dengan kata sandi tidak valid
-3. TC-03 — Pencarian produk tersedia
-4. TC-04 — Pencarian produk tidak tersedia
-5. TC-05 — Menambahkan produk ke keranjang
-6. TC-06 — Mengubah jumlah produk di keranjang
-7. TC-07 — Checkout dengan data lengkap
-8. TC-08 — Checkout tanpa metode pembayaran
+3. TC-03 — Login pengguna dengan format email tidak valid
+4. TC-04 — Pencarian produk tersedia
+5. TC-05 — Pencarian produk tidak tersedia
+6. TC-06 — Menambahkan produk ke keranjang
+7. TC-07 — Mengubah jumlah produk di keranjang
+8. TC-08 — Checkout dengan data lengkap
+9. TC-09 — Checkout tanpa alamat pengiriman
+10. TC-10 — Checkout dengan keranjang kosong
 
 Menjalankan pengujian secara lokal:
 
@@ -146,7 +148,7 @@ Tahapan Continuous Integration meliputi:
 - Menyiapkan PHP, Node.js, Composer, dan MySQL
 - Mengimpor database khusus pengujian
 - Menjalankan server PHP
-- Menjalankan delapan pengujian Playwright pada Chromium
+- Menjalankan sepuluh pengujian Playwright pada Chromium
 - Menyimpan laporan Playwright dan log server sebagai artifact
 
 Branch `main` dilindungi dengan aturan berikut:

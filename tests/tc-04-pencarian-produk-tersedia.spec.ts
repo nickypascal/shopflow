@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 const productName =
   process.env.SHOPFLOW_TEST_PRODUCT_AVAILABLE ?? 'Laptop Premium 14';
 
-test('TC-03 - pencarian produk tersedia', async ({ page }) => {
+test('TC-04 - pencarian produk tersedia', async ({ page }) => {
   const response = await page.goto('index.php');
   expect(response?.ok()).toBeTruthy();
 

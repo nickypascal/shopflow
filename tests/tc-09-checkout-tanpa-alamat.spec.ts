@@ -6,7 +6,7 @@ const password = process.env.SHOPFLOW_TEST_NO_ADDRESS_PASSWORD;
 const productName =
   process.env.SHOPFLOW_TEST_SIMPLE_PRODUCT ?? 'Kursi Kerja Nyaman';
 
-test('TC-08 - checkout tanpa alamat pengiriman', async ({ page }) => {
+test('TC-09 - checkout tanpa alamat pengiriman', async ({ page }) => {
   test.skip(
     !email || !password,
     'SHOPFLOW_TEST_NO_ADDRESS_EMAIL dan SHOPFLOW_TEST_NO_ADDRESS_PASSWORD belum diatur.',
